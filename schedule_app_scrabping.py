@@ -68,7 +68,8 @@ for p_year in tqdm_gui(target_year, desc='target_year'):
 
                     newDictionary = json.loads(str(soup))
                     df_temp = pd.DataFrame(newDictionary["result"])
-                    if df_temp.empty: break
+                    if newDictionary["rcmsg"] == "데이터가 없습니다." : continue
+                    #데이터가 없으면 continue 로직 추가
 
                     df_temp["search_date"] = search_date
                     df_temp["year"] = p_year
