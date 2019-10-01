@@ -34,6 +34,8 @@ url_format = "http://www.airportal.go.kr/servlet/aips.mobile.MobileRbHanCTL?cmd=
 # headers = {'content-type': 'application/json;charset=utf-8'}
 for p_year in tqdm_gui(target_year, desc='target_year'):
     for p_month in tqdm_gui(target_month, desc='target_month'):
+        # 종료 조건 추가 '2019년 9월'까지 데이터 수집
+        if p_year == "2019" and p_month == "10" : break
         last_day = calendar.monthrange(int(p_year), int(p_month))[1]  # 30
         for p_date in tqdm_gui(target_date, desc='target_date'):
             # 해당월의 마지막 날짜 체크
@@ -68,7 +70,8 @@ for p_year in tqdm_gui(target_year, desc='target_year'):
 
                     newDictionary = json.loads(str(soup))
                     df_temp = pd.DataFrame(newDictionary["result"])
-                    if newDictionary["rcmsg"] == "데이터가 없습니다." : continue
+                    if newDictionary["rcmsg"] == "데이터가 없습니다." :
+                        continue
                     #데이터가 없으면 continue 로직 추가
 
                     df_temp["search_date"] = search_date
