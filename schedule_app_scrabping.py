@@ -33,11 +33,11 @@ target_date = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", \
 url_format = "http://www.airportal.go.kr/servlet/aips.mobile.MobileRbHanCTL?cmd=c_getList&index=0&count=500&depArr=D&current_date={search_date}&tm={search_hour}&airport=ICN"
 # headers = {'content-type': 'application/json;charset=utf-8'}
 for p_year in tqdm_gui(target_year, desc='target_year'):
-    for p_month in tqdm_gui(target_month, desc='target_month'):
+    for p_month in target_month:
         # 종료 조건 추가 '2019년 9월'까지 데이터 수집
         if p_year == "2019" and p_month == "10" : break
         last_day = calendar.monthrange(int(p_year), int(p_month))[1]  # 30
-        for p_date in tqdm_gui(target_date, desc='target_date'):
+        for p_date in target_date:
             # 해당월의 마지막 날짜 체크
             exception_tf = False
             if last_day < (int(p_date)) : break
@@ -80,7 +80,7 @@ for p_year in tqdm_gui(target_year, desc='target_year'):
                     df_temp["date"] = p_date
                     df_temp["hour"] = p_hour
 
-                    if p_hour == 0 :
+                    if df.empty :
                         df = df_temp.copy()
                     else :
                         df = pd.concat([df, df_temp])
