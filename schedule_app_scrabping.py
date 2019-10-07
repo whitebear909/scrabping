@@ -3,8 +3,6 @@
 #        2) 접속경로에서 시간대별 데이터를 수집 후 일자별로 저장하는 스크랩핑 로직 개발
 # 생성일자 : 2019/10/01
 
-
-
 from bs4 import BeautifulSoup
 import requests
 import json
